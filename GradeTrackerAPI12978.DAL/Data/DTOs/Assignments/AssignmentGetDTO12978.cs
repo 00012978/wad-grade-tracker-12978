@@ -1,6 +1,4 @@
-﻿using GradeTrackerAPI12978.Entities;
-
-namespace GradeTrackerAPI12978.Data.DTOs.Assignments
+﻿namespace GradeTracker12978.DAL.Data.DTOs.Assignments
 {
     public class AssignmentGetDTO12978
     {

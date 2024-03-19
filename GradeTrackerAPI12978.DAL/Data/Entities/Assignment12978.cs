@@ -1,4 +1,4 @@
-﻿namespace GradeTrackerAPI12978.Entities
+﻿namespace GradeTracker12978.DAL.Data.Entities
 {
     public class Assignment12978
     {

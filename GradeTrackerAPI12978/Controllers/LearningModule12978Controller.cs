@@ -4,11 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using GradeTrackerAPI12978.Data;
-using GradeTrackerAPI12978.Entities;
-using GradeTrackerAPI12978.Data.DTOs.Modules;
-using Mapster;
+using GradeTracker12978.DAL.Repositories.LearningModules;
+using GradeTracker12978.DAL.Data.DTOs.Modules;
 
 namespace GradeTrackerAPI12978.Controllers
 {
@@ -16,92 +13,48 @@ namespace GradeTrackerAPI12978.Controllers
     [ApiController]
     public class LearningModule12978Controller : ControllerBase
     {
-        private readonly MainDbContext _context;
+        private readonly IModuleRepository _repository;
 
-        public LearningModule12978Controller(MainDbContext context)
+        public LearningModule12978Controller(IModuleRepository rep)
         {
-            _context = context;
+            _repository = rep;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ModuleGetDTO12978>>> GetModules()
+        public async Task<IEnumerable<ModuleGetDTO12978>> GetModules()
         {
-            var modules = await _context.Modules.Include(t => t.Assignments).ToListAsync();
-            var result = modules.Adapt<List<ModuleGetDTO12978>>();
-            return result;
+            return await _repository.GetAll();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ModuleGetDTO12978>> GetLearningModule12978(int id)
         {
-            var learningModule12978 = await _context.Modules.FindAsync(id);
+            var learningModule12978 = await _repository.GetById(id);
 
             if (learningModule12978 == null)
             {
                 return NotFound();
             }
 
-            var res = learningModule12978.Adapt<ModuleGetDTO12978>();
-
-            return res;
+            return learningModule12978;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLearningModule12978(int id, ModuleCreateDTO12978 req)
+        public async Task PutLearningModule12978(int id, ModuleCreateDTO12978 req)
         {
-            var module = req.Adapt<LearningModule12978>();
-            module.Id = id;
-
-            _context.Entry(module).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LearningModule12978Exists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            await _repository.Update(id, req);
         }
 
         [HttpPost]
-        public async Task<ActionResult<LearningModule12978>> PostLearningModule12978(ModuleCreateDTO12978 req)
+        public async Task<ModuleGetDTO12978> PostLearningModule12978(ModuleCreateDTO12978 req)
         {
-            var module = req.Adapt<LearningModule12978>();
-
-            _context.Modules.Add(module);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetLearningModule12978", new { id = module.Id }, req);
+            return await _repository.Create(req);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLearningModule12978(int id)
+        public async Task DeleteLearningModule12978(int id)
         {
-            var learningModule12978 = await _context.Modules.FindAsync(id);
-            if (learningModule12978 == null)
-            {
-                return NotFound();
-            }
-
-            _context.Modules.Remove(learningModule12978);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool LearningModule12978Exists(int id)
-        {
-            return _context.Modules.Any(e => e.Id == id);
+            await _repository.Delete(id);
         }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace GradeTrackerAPI12978.Data.Migrations
+namespace GradeTracker12978.DAL.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration

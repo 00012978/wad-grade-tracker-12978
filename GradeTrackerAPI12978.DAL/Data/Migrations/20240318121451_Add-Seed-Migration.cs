@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace GradeTrackerAPI12978.Data.Migrations
+namespace GradeTracker12978.DAL.Data.Migrations
 {
     /// <inheritdoc />
     public partial class AddSeedMigration : Migration

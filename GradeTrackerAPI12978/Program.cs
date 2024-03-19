@@ -1,8 +1,5 @@
-using GradeTrackerAPI12978.Data;
-using GradeTrackerAPI12978.Data.DTOs.Assignments;
-using GradeTrackerAPI12978.Data.DTOs.Modules;
-using GradeTrackerAPI12978.Entities;
-using Mapster;
+using GradeTracker12978.DAL.Data;
+using GradeTrackerAPI12978;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +15,9 @@ builder.Services.AddDbContext<MainDbContext>(
     options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("SqlServerConnection")));
 
-ConfigureMapster();
+builder.Services.RegisterServices();
+
+MapsterConfiguration.ConfigureMapster();
 var app = builder.Build();
 
 
@@ -34,16 +33,3 @@ app.MapControllers();
 
 app.Run();
 
-void ConfigureMapster()
-{
-    TypeAdapterConfig<Assignment12978, AssignmentGetDTO12978>.NewConfig()
-        .Map(dest => dest.AssignmentTypeName, src => src.AssignmentType.Name)
-        .Map(dest => dest.ModuleTitle, src => src.Module.Title);
-
-    TypeAdapterConfig<Assignment12978, AssignmentCreateDTO12978>.NewConfig()
-        .Map(dest => dest.AssignmentTypeId, src => src.AssignmentType.Id)
-        .Map(dest => dest.ModuleId, src => src.Module.Id);
-
-    TypeAdapterConfig<LearningModule12978, ModuleGetDTO12978>.NewConfig()
-        .Map(dest => dest.Assignments, src => src.Assignments.Select(a => a.Title).ToList());
-}

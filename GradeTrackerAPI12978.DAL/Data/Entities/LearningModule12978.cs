@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GradeTrackerAPI12978.Entities
+namespace GradeTracker12978.DAL.Data.Entities
 {
     public class LearningModule12978
     {

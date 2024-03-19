@@ -1,6 +1,4 @@
-﻿using GradeTrackerAPI12978.Entities;
-
-namespace GradeTrackerAPI12978.Data.DTOs.Modules
+﻿namespace GradeTracker12978.DAL.Data.DTOs.Modules
 {
     public class ModuleGetDTO12978
     {
