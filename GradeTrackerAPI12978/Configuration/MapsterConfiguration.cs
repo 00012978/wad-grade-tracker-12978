@@ -4,7 +4,7 @@ using GradeTracker12978.DAL.Data.Entities;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
-namespace GradeTrackerAPI12978
+namespace GradeTrackerAPI12978.Configuration
 {
     public static class MapsterConfiguration
     {
