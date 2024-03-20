@@ -1,0 +1,55 @@
+<div class="p-8 mt-8 flex justify-center">
+    <form class="shadow-lg border rounded-3xl w-5/12 p-8">
+
+        <p class="text-3xl">Create an Assignment</p>
+
+        <mat-form-field class="w-full mt-4">
+            <mat-label>Assignment Title</mat-label>
+            <input matInput name="Title" type="text" [(ngModel)]="createAssignment.title" required>
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+            <mat-label>Weighting</mat-label>
+            <input matInput name="Weighting" type="number" [(ngModel)]="createAssignment.weighting" min="0" max="100">
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+            <mat-label>Grade</mat-label>
+            <input matInput name="Grade" type="number" [(ngModel)]="createAssignment.grade" min="0" max="100">
+        </mat-form-field>
+    
+        <mat-form-field class="w-full">
+            <mat-label>Select Due Date</mat-label>
+            <input matInput [matDatepicker]="dueDatepicker" name="dueDate" [(ngModel)]="createAssignment.dueDate">
+            <mat-datepicker-toggle matIconSuffix [for]="dueDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #dueDatepicker></mat-datepicker>
+            </mat-form-field>
+    
+        <mat-form-field class="w-full">
+            <mat-label>Choose Module</mat-label>
+            <mat-select [(ngModel)]="moduleID" name="Project">
+                @for(m of module; track m)
+                {
+                <mat-option [value]="m.id">{{m.title}}</mat-option>
+                }
+            </mat-select>
+
+        </mat-form-field>
+    
+        <mat-form-field class="w-full">
+            <mat-label>Choose Type of Assignment</mat-label>
+            <mat-select [(ngModel)]="typeID" name="AssignmentType">
+                @for(a of assignmentType; track a)
+                {
+                <mat-option [value]="a.id">{{a.name}}</mat-option>
+                }
+            </mat-select>
+
+        </mat-form-field>
+        
+        <div class="flex justify-center">
+            <button class="mr-5" mat-raised-button (click)="Cancel()">Cancel</button>
+            <button mat-raised-button color="primary" (click)="Create()">Create</button>
+        </div>
+    </form>
+</div>

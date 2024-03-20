@@ -3,20 +3,27 @@ using GradeTracker12978.DAL.Data.DTOs.Modules;
 using GradeTracker12978.DAL.Data.Entities;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace GradeTracker12978.DAL.Repositories.LearningModules
 {
     public class ModuleRepository : IModuleRepository
     {
         private readonly MainDbContext _context;
+        private readonly IModuleCalculationService12978 _calculationService;
 
-        public ModuleRepository(MainDbContext context)
+        public ModuleRepository(MainDbContext context, IModuleCalculationService12978 calculationService)
         {
             _context = context;
+            _calculationService = calculationService;
         }
         public async Task<IEnumerable<ModuleGetDTO12978>> GetAll()
         {
             var modules = await _context.Modules.Include(m => m.Assignments).ToListAsync();
+            foreach (var module in modules)
+            {
+                module.TotalMark = _calculationService.CalculateTotalMark(module);
+            }
             var result = modules.Adapt<List<ModuleGetDTO12978>>();
             return result;
         }
@@ -24,6 +31,8 @@ namespace GradeTracker12978.DAL.Repositories.LearningModules
         public async Task<ModuleGetDTO12978?> GetById(int id)
         {
             var module = await _context.Modules.Include(m => m.Assignments).FirstOrDefaultAsync(m => m.Id == id);
+            if (module != null)
+                module.TotalMark = _calculationService.CalculateTotalMark(module);
             var res = module?.Adapt<ModuleGetDTO12978>();
             return res;
         }

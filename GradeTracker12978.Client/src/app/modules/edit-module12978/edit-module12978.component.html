@@ -1,0 +1,26 @@
+<div class="p-8 mt-8 flex justify-center">
+    <form class="shadow-lg border rounded-3xl w-5/12 p-8">
+
+        <p class="text-3xl">Create a Module</p>
+          
+        <mat-form-field class="w-full mt-4">
+            <mat-label>Module Title</mat-label>
+            <input matInput name="Title" type="text" [(ngModel)]="editModule.title" required>
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+            <mat-label>Module Code</mat-label>
+            <input matInput name="Code" type="text" [(ngModel)]="editModule.code">
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+            <mat-label>Credits</mat-label>
+            <input matInput name="Credits" type="number" [(ngModel)]="editModule.credits" min="0" max="120" required>
+        </mat-form-field>
+        
+        <div class="flex justify-center">
+            <button class="mr-5" mat-raised-button (click)="Cancel()">Cancel</button>
+            <button mat-raised-button color="primary" (click)="Edit()">Edit</button>
+        </div>
+    </form>
+</div>

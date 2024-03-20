@@ -6,6 +6,7 @@
         public required string Title { get; set; }
         public string? Code { get; set; }
         public int Credits { get; set; }
+        public double? TotalMark { get; set; }
         public ICollection<string> Assignments { get; set; } = new List<string>();
     }
 }

@@ -1,0 +1,40 @@
+<div class="flex justify-center">
+  <div class="w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+      <div *ngFor="let module of items" class="py-4 px-2 drop-shadow-lg">
+        <mat-card class="p-4">
+          <mat-card-header>
+            <mat-card-title><span class="text-2xl">{{ module.title }}</span></mat-card-title>
+            <mat-card-subtitle>{{ module.code }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="mt-3">
+            <p>Credits: {{ module.credits }}</p>
+            <p>Total Mark: <span [ngStyle]="{ color: module && module.totalMark 
+                  ? module.totalMark > 70 ? 'green' : (module.totalMark < 40 ? 'red' : 'black')
+                  : 'black'
+              }"> {{ module?.totalMark ? module.totalMark : 'TBA' }}
+              </span>
+            </p>  
+          </mat-card-content>
+          <mat-card-actions class="mt-3">
+            <button mat-stroked-button color="primary" (click)="Edit(module.id)">Edit</button>
+            <button mat-stroked-button class="ml-5" color="warn" (click)="Delete(module.id)">Delete</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class="p-4 drop-shadow-lg">
+        <mat-card class="min-h-48 flex justify-around p-4">
+          <mat-card-header>
+            <mat-card-title><span class="text-2xl">Add a New Module!</span></mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Click on the button to add a new module</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="AddModule()">Add Module</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

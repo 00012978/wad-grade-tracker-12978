@@ -8,6 +8,8 @@ namespace GradeTracker12978.DAL.Data.Entities
         public required string Title { get; set; }
         public string? Code { get; set; }
         public int Credits { get; set; }
+        [NotMapped]
+        public double? TotalMark { get; set; }
         public ICollection<Assignment12978> Assignments { get; set; } = new List<Assignment12978>();
     }
 }

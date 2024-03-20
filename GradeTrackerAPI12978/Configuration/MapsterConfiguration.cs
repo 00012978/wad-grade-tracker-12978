@@ -2,7 +2,6 @@
 using GradeTracker12978.DAL.Data.DTOs.Modules;
 using GradeTracker12978.DAL.Data.Entities;
 using Mapster;
-using Microsoft.EntityFrameworkCore;
 
 namespace GradeTrackerAPI12978.Configuration
 {
@@ -12,6 +11,7 @@ namespace GradeTrackerAPI12978.Configuration
         {
             TypeAdapterConfig<Assignment12978, AssignmentGetDTO12978>.NewConfig()
                 .Map(dest => dest.AssignmentTypeName, src => src.AssignmentType.Name)
+                .Map(dest => dest.ModuleId, src => src.Module.Id)
                 .Map(dest => dest.ModuleTitle, src => src.Module.Title);
 
             TypeAdapterConfig<Assignment12978, AssignmentCreateDTO12978>.NewConfig()

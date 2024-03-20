@@ -1,4 +1,5 @@
 ﻿using GradeTracker12978.DAL.Repositories.Assignments;
+using GradeTracker12978.DAL.Repositories.AssignmentTypes;
 using GradeTracker12978.DAL.Repositories.LearningModules;
 
 namespace GradeTrackerAPI12978
@@ -9,7 +10,8 @@ namespace GradeTrackerAPI12978
         {
             service
                 .AddAssignmentRepository()
-                .AddModuleRepository();
+                .AddModuleRepository()
+                .AddAssignmentTypeRepository();
 
             return service;
         }
